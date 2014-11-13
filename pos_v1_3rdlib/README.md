@@ -6,6 +6,8 @@ POS收银机 版本：v1
 
 1. 熟悉JavaScript的基本语法；
 2. 熟悉JavaScript的基本逻辑语句及关键字；
+3. 熟悉使用Lo-Dash和moment.js等第三方Javascript库改进编码过程和编码质量。
+4. 了解函数式编程的优势。
 
 ## 需求描述
 
@@ -99,3 +101,4 @@ POS收银机 版本：v1
    ```
 
 4. 应学习并善于使用各种流行浏览器所附带的开发人员工具中的控制台（Console）功能。
+5. 有关于[Lo-Dash](http://lodash.com)和[moment.js](http://momentjs.com)的使用方法，请查阅各自官方网站。
