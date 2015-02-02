@@ -57,7 +57,7 @@ describe('pos', function () {
 
     it('should print correct text', function () {
 
-        spyOn(console, 'log');
+       spyOn(console, 'log');
 
         printInventory(inputs);
 
@@ -69,7 +69,6 @@ describe('pos', function () {
             '----------------------\n' +
             '总计：23.00(元)\n' +
             '**********************';
-
-          expect(console.log).toHaveBeenCalledWith(expectText);
+        expect(console.log).toHaveBeenCalledWith(expectText);
     });
 });
