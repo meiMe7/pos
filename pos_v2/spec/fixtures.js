@@ -8,38 +8,6 @@ function loadAllItems() {
         new Item('ITEM000005', '方便面', '袋', 4.50)
     ];
 }
-function create_loadAllItems(){
-    var collection = loadAllItems();
-    var result = [];
-    var obj = {
-        barcode: '',
-        name: '',
-        unit: '',
-        price: 0.00
-    };
-    for(var i in collection){
-        obj.barcode = collection[i].barcode;
-        obj.name = collection[i].name;
-        obj.unit = collection[i].unit;
-        obj.price = collection[i].price;
-        result.push(obj);
-    }
-    return result;
-}
-function create_loadPromotions() {
-    var collection = loadPromotions();
-    var result = [];
-    var obj = {
-        barcode: '',
-        type: []
-    };
-    for(var i in collection){
-        obj.barcode = collection[i].barcode;
-        obj.type = collection[i].type;
-        result.push(obj);
-    }
-    return result;
-}
 function loadPromotions() {
     return [
         new Promotion('BUY_TWO_GET_ONE_FREE', [

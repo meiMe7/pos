@@ -15,7 +15,7 @@ function print_shopping_list(inputs) {
         var price = parseFloat(inputs[i].price).toFixed(2);
 
         all_count = all_count+inputs[i].price*inputs[i].count_temp;
-        var promotions = create_loadPromotions();
+        var promotions = loadPromotions();
 
         for(var j in promotions[0].barcode){
             if(promotions[0].barcode[j] == inputs[i].barcode){
