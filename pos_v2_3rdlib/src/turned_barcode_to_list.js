@@ -1,11 +1,11 @@
 /**
  * Created by csc on 15-2-3.
  */
-var turned_barcode_to_list = {
-    collection:[],
-    collection_message:[],
-    sail_collection_message:[],
-    count_barcode:function(){
+var turned_barcode_to_list =function() {
+    var collection = [];
+    var collection_message =[];
+    var sail_collection_message = [];
+    this.count_barcode = function(){
         var collection_a = this.collection;
         var result =[];
         for (var i=0;i< collection_a.length;i++) {
@@ -22,8 +22,8 @@ var turned_barcode_to_list = {
             result.push(obj);
         }
         this.collection = result;
-    },
-    split_barcode:function(){
+    };
+    this.split_barcode = function(){
         var collection = this.collection;
         for (var i=0;i<collection.length;i++) {
             var arr =  new String(collection[i].barcode).split("-");
@@ -34,7 +34,7 @@ var turned_barcode_to_list = {
         }
        this.collection = collection;
     },
-    create_list:function (){
+    this.create_list = function (){
         var collection_a = this.collection_message;
         var collection_b = this.collection;
     var result = [];
@@ -59,7 +59,8 @@ var turned_barcode_to_list = {
         } if(obj.barcode != '')result.push(obj);
     }
     this.collection = result;
-}, sum_count_price:function(){
+}
+    this.sum_count_price = function(){
         var collection_a = this.collection;
         var collection_b = this.sail_collection_message;
     var all_count = 0;

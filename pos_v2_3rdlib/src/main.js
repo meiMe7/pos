@@ -1,6 +1,6 @@
 //TODO: Please write code in this file.
 function  printInventory(inputs){
-    var turn_barcode = turned_barcode_to_list;
+    var turn_barcode = new turned_barcode_to_list();
     turn_barcode.collection  = inputs;
     turn_barcode.count_barcode();
     turn_barcode.split_barcode();
