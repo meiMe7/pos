@@ -36,6 +36,6 @@ function date_show(){
     var hour = currentDate.getHours();
     var minute =  dateDigitToString(currentDate.getMinutes());
     var second = dateDigitToString(currentDate.getSeconds());
-    var  formattedDateString = year + '年' + month + '月' + date + '日 ' + hour + ':' + minute + ':' + second;
-    return formattedDateString;
+    var  str_date = year + '年' + month + '月' + date + '日 ' + hour + ':' + minute + ':' + second;
+    return str_date;
 }
