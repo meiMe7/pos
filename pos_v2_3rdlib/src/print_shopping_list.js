@@ -1,6 +1,6 @@
 /**
  * Created by csc on 15-2-3.
- */
+ *///按照购买的商品信息，和总计，节省，打印出商品信息．
 function print_shopping_list(collection,sum) {
     var str_header = '***<没钱赚商店>购物清单***'+'\n';
     var str_foot_a = '----------------------'+'\n';
@@ -24,6 +24,7 @@ function print_shopping_list(collection,sum) {
     var str_all = str_header+str_date+str_foot_a+str_body+str_foot_a+str_sail_title+str_body_sail+str_foot_a+str_count+str_sail+str_foot_b;
     console.log(str_all);
 }
+//得到当前时间，并按照：0000年00月00日00:00:00的格式显示
 function date_show(){
     var dateDigitToString;
     dateDigitToString = function (num) {
@@ -31,11 +32,11 @@ function date_show(){
     };
     var currentDate = new Date();
     var year = dateDigitToString(currentDate.getFullYear());
-    var month  = dateDigitToString(currentDate.getMonth() + 1);
+    var month = dateDigitToString(currentDate.getMonth() + 1);
     var date = dateDigitToString(currentDate.getDate());
-    var hour = currentDate.getHours();
-    var minute =  dateDigitToString(currentDate.getMinutes());
+    var hour = dateDigitToString(currentDate.getHours());
+    var minute = dateDigitToString(currentDate.getMinutes());
     var second = dateDigitToString(currentDate.getSeconds());
-    var  str_date = year + '年' + month + '月' + date + '日 ' + hour + ':' + minute + ':' + second;
-    return str_date;
+    var currentDateMessage = year + '年' + month + '月' + date + '日 ' + hour + ':' + minute + ':' + second;
+    return currentDateMessage;
 }
