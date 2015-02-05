@@ -15,6 +15,7 @@ function print_shopping_list(collection, sum) {
     for (var i in collection) {
         var count = parseFloat(collection[i].price * collection[i].count_temp).toFixed(2);
         var price = parseFloat(collection[i].price).toFixed(2);
+      
         for (var j in promotions[0].barcode) {
             if (promotions[0].barcode[j] == collection[i].barcode) {
                 count = parseFloat(collection[i].price * (collection[i].count_temp - 1)).toFixed(2);
