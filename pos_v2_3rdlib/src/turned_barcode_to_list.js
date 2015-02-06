@@ -12,17 +12,14 @@ Turned_barcode_to_list.prototype.count_barcode = function () {
     var collection_a = this.collection;
     var result = [];
 
-    for (var i = 0; i < collection_a.length; i++) {
-        var sum = 1;
+    for (var object_i in collection_a) {
+        var sum = 0;
         var obj = {};
-        for (var j = i + 1; j < collection_a.length; j++) {
-            if (collection_a[i] == collection_a[j]) {
+        for (var object_j in collection_a) {
+            if (collection_a[object_i] == collection_a[object_j]) {
                 sum++;
-                i = j;
-            }
-        }
-        obj = {barcode: collection_a[i], count_temp: sum};
-        obj.count_temp = sum;
+                         }        }
+        obj = {barcode: collection_a[object_i], count_temp: sum};
         result.push(obj);
     }
 
@@ -83,10 +80,7 @@ Turned_barcode_to_list.prototype.sum_count_price = function () {
             for (var j in collection_b[k].barcode) {
                 if (collection_b[k].barcode[j] == collection_a[i].barcode) {
                     sail_count = sail_count + collection_a[i].price;
-                }
-            }
-        }
-    }
+                }   }   }    }
 
     all_count = parseFloat(all_count - sail_count).toFixed(2);
     return [all_count, sail_count];

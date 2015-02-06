@@ -28,22 +28,11 @@ function print_shopping_list(inputs) {
     }
     var str_count = '总计：'+parseFloat(all_count-sail_count).toFixed(2)+'(元)\n';
     var str_sail = '节省：'+parseFloat(sail_count).toFixed(2)+'(元)\n';
-    var str_data = '打印时间：'+data_show()+'\n';
+    var str_data = '打印时间：'+date_show()+'\n';
     var str_all = str_header+str_data+str_foot_a+str_body+str_foot_a+str_sail_title+str_body_sail+str_foot_a+str_count+str_sail+str_foot_b;
     console.log(str_all);
 }
-function data_show(){
-    var dateDigitToString;
-    dateDigitToString = function (num) {
-        return num < 10 ? '0' + num : num;
-    };
-    var currentDate = new Date();
-    var year = dateDigitToString(currentDate.getFullYear());
-    var month  = dateDigitToString(currentDate.getMonth() + 1);
-    var date = dateDigitToString(currentDate.getDate());
-    var hour = currentDate.getHours();
-    var minute =  currentDate.getMinutes();
-    var second = currentDate.getSeconds();
-    var  formattedDateString = year + '年' + month + '月' + date + '日 ' + hour + ':' + minute + ':' + second;
-    return formattedDateString;
+function date_show() {
+    var currentDateMessage = moment().format('YYYY年MM月DD日 HH:mm:ss');
+    return currentDateMessage;
 }
