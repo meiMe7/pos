@@ -2,7 +2,7 @@
  * Created by csc on 15-2-3.
  */
 //条形码转换成购买商品的信息
-function Turned_barcode_to_list  () {
+function Turned_barcode_to_list() {
     var collection = [];
     var collection_message = [];
     var sail_collection_message = [];
@@ -70,6 +70,7 @@ Turned_barcode_to_list.prototype.sum_count_price = function () {
     var collection_b = this.sail_collection_message;
     var all_count = 0;
     var sail_count = 0.00;
+
     for (var i in collection_a) {
         all_count = all_count + collection_a[i].price * collection_a[i].count_temp;
         for (var k in  collection_b) {

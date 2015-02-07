@@ -2,7 +2,7 @@
  * Created by csc on 15-2-3.
  */
 //条形码转换成购买商品的信息
-function TurnedBarcodeToList  () {
+function TurnedBarcodeToList() {
     var collection = [];
     var collection_message = [];
     var sail_collection_message = [];
