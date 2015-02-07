@@ -1,7 +1,7 @@
 /**
  * Created by csc on 15-2-3.
  */
-function create_barcode(collection_a){
+function createBarcode(collection_a){
     var result =[];
 
     for (var i=0;i< collection_a.length;i++) {
@@ -17,5 +17,6 @@ function create_barcode(collection_a){
         obj.count_temp = sum;
         result.push(obj);
     }
+
     return result;
 }

@@ -1,12 +1,8 @@
 //TODO: Please write code in this file.
 function  printInventory(inputs){
-    var collection =create_barcode(inputs);
-    var collection_b = split_barcode(collection);
+    var collection =createBarcode(inputs);
+    var collection_b = splitBarcode(collection);
     var collection_a = loadAllItems();
-    var collection = create_list(collection_a,collection_b);
-    print_shopping_list(collection);
+    var collection = createList(collection_a,collection_b);
+    printShoppingList(collection);
 }
-
-
-
-

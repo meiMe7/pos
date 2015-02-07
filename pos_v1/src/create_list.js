@@ -1,8 +1,9 @@
 /**
  * Created by csc on 15-2-3.
  */
-function create_list(collection_a,collection_b){
+function createList(collection_a,collection_b){
     var result = [];
+
     for(var i = 0;i<collection_a.length;i++){
         var obj = {
             barcode: '',
@@ -23,5 +24,6 @@ function create_list(collection_a,collection_b){
             }
         } if(obj.barcode != '')result.push(obj);
     }
+
     return result;
 }
