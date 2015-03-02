@@ -30,10 +30,13 @@ Turned_barcode_to_list.prototype.count_barcode = function () {
 Turned_barcode_to_list.prototype.split_barcode = function () {
     var collection = this.collection;
     for (var i = 0; i < collection.length; i++) {
-        var arr = (collection[i].barcode).split("-");
-        if (arr[1] != undefined) {
-            collection[i].barcode = arr[0];
-            collection[i].count_temp = Number(arr[1]);
+            var arr = (collection[i]).split("-");
+            if(arr[1] != undefined){
+                collection[i]=collection[++i];
+                collection.length =collection.length-1;
+                for(var i = 0 ;i < arr[1];i++){
+                    collection.push(arr[0]);
+                }
         }
     }
     this.collection = collection;

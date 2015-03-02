@@ -14,6 +14,9 @@ function printInventory(inputs) {
     }
 
     var stringCount = '总计：' + parseFloat(allCount).toFixed(2) + '(元)\n';
-    var stringAll = stringHeader + stringBody + stringFootA + stringCount + stringFootB;
+    var stringAll = stringHeader + stri
+
+
+    ngBody + stringFootA + stringCount + stringFootB;
     console.log(stringAll);
 }
