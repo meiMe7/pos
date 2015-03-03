@@ -30,36 +30,36 @@ Turned_barcode_to_list.prototype.count_barcode = function () {
 Turned_barcode_to_list.prototype.split_barcode = function () {
     var collection = this.collection;
     for (var i = 0; i < collection.length; i++) {
-            var arr = (collection[i]).split("-");
-            if(arr[1] != undefined){
-                collection[i]=collection[++i];
-                collection.length =collection.length-1;
-                for(var i = 0 ;i < arr[1];i++){
-                    collection.push(arr[0]);
-                }
+        var arr = (collection[i]).split("-");
+        if (arr[1] != undefined) {
+            collection[i] = collection[++i];
+            collection.length = collection.length - 1;
+            for (var i = 0; i < arr[1]; i++) {
+                collection.push(arr[0]);
+            }
         }
     }
     this.collection = collection;
 };
 //将条形码中计数单位为"斤"的商品选择出来组成单独数组,采用称重的方式得到称重商品条形码重量对象数组result[{barcode:,count_temp:}],turn_barcode.collection中不包括称重商品的条形码
-Turned_barcode_to_list.prototype.weight = function(){
+Turned_barcode_to_list.prototype.weight = function () {
     var collection_a = this.collection;
     var result = [];
-    for(var i in collection_a){
+    for (var i in collection_a) {
         var collection_b = loadAllItems();
-        for(var j in collection_b){
-            if(collection_a[i] == collection_b[j].barcode && collection_b[j].unit == "斤"){
+        for (var j in collection_b) {
+            if (collection_a[i] == collection_b[j].barcode && collection_b[j].unit == "斤") {
                 result.push(collection_a[i]);
             }
         }
     }
-    for(var i in collection_a){
+    for (var i in collection_a) {
         var collection_b = loadAllItems();
-        for(var j in result){
-            if(collection_a[i] == result[j]){
-                collection_a[i]=collection_a[++i];
+        for (var j in result) {
+            if (collection_a[i] == result[j]) {
+                collection_a[i] = collection_a[++i];
                 --i;
-                collection_a.length = collection_a.length-1;
+                collection_a.length = collection_a.length - 1;
             }
         }
     }
@@ -86,7 +86,7 @@ Turned_barcode_to_list.prototype.all_goods = function (weight) {
 
     var collection_a = this.collection;
     var collection_b = weight;
-    for(var i in weight){
+    for (var i in weight) {
         collection_a.push(weight[i]);
     }
     this.collection = collection_a;
