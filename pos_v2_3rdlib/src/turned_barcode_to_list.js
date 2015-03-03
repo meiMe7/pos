@@ -41,7 +41,57 @@ Turned_barcode_to_list.prototype.split_barcode = function () {
     }
     this.collection = collection;
 };
-//按照条形码对象数组，将条形码与商品信息相对应，得到购买商品信息对象数组
+//将条形码中计数单位为"斤"的商品选择出来组成单独数组,采用称重的方式得到称重商品条形码重量对象数组result[{barcode:,count_temp:}],turn_barcode.collection中不包括称重商品的条形码
+Turned_barcode_to_list.prototype.weight = function(){
+    var collection_a = this.collection;
+    var result = [];
+    for(var i in collection_a){
+        var collection_b = loadAllItems();
+        for(var j in collection_b){
+            if(collection_a[i] == collection_b[j].barcode && collection_b[j].unit == "斤"){
+                result.push(collection_a[i]);
+            }
+        }
+    }
+    for(var i in collection_a){
+        var collection_b = loadAllItems();
+        for(var j in result){
+            if(collection_a[i] == result[j]){
+                collection_a[i]=collection_a[++i];
+                --i;
+                collection_a.length = collection_a.length-1;
+            }
+        }
+    }
+    this.collection = collection_a;
+    var collection_a = result;
+    var result_b = [];
+    for (var i = 0; i < collection_a.length; i++) {
+        var sum = 1;
+        var obj = {};
+        for (var j = i + 1; j < collection_a.length; j++) {
+            if (collection_a[i] == collection_a[j]) {
+                sum++;
+                i = j;
+            }
+        }
+        obj = {barcode: collection_a[i], count_temp: sum};
+        obj.count_temp = sum;
+        result_b.push(obj);
+    }
+    return result_b;
+};
+//称重商品与普通商品合并得到商品数量对象数组[{barcode:,count_temp:}];
+Turned_barcode_to_list.prototype.all_goods = function (weight) {
+
+    var collection_a = this.collection;
+    var collection_b = weight;
+    for(var i in weight){
+        collection_a.push(weight[i]);
+    }
+    this.collection = collection_a;
+};
+//按照条形码对象数组,条形码与商品信息相对应，得到购买商品信息对象数组
 Turned_barcode_to_list.prototype.create_list = function () {
     var collection_a = this.collection_message;
     var collection_b = this.collection;
