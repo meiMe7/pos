@@ -6,11 +6,11 @@ function printInventory(inputs) {
     printShoppingList(result);
 }
 
-function createShoppingList(collection_a, collection_b) {
-    console.log(collection_a);
+function createShoppingList(collectionA, collectionB) {
+    console.log(collectionA);
     var result = [];
 
-    for (var object_i in collection_a) {
+    for (var i in collectionA) {
         var obj = {
             barcode: '',
             name: '',
@@ -18,12 +18,12 @@ function createShoppingList(collection_a, collection_b) {
             price: 0,
             count_temp: 0
         };
-        for (var object_j in collection_b) if (collection_a[object_i].barcode == collection_b[object_j].barcode) {
-            obj.barcode = collection_a[object_i].barcode;
-            obj.name = collection_a[object_i].name;
-            obj.unit = collection_a[object_i].unit;
-            obj.price = collection_a[object_i].price;
-            obj.count_temp = collection_b[object_j].count_temp;
+        for (var j in collectionB) if (collectionA[i].barcode == collectionB[j].barcode) {
+            obj.barcode = collectionA[i].barcode;
+            obj.name = collectionA[i].name;
+            obj.unit = collectionA[i].unit;
+            obj.price = collectionA[i].price;
+            obj.count_temp = collectionB[j].count_temp;
             result.push(obj);
         }
     }
@@ -31,20 +31,20 @@ function createShoppingList(collection_a, collection_b) {
     return result;
 }
 
-function createBarcodeList(collection_a) {
+function createBarcodeList(collectionA) {
     var result = [];
 
-    for (var i = 0; i < collection_a.length; i++) {
+    for (var i = 0; i < collectionA.length; i++) {
         var sum = 0;
         var obj = {};
-        for (var j = 0; j < collection_a.length; j++) {
-            if (collection_a[i] == collection_a[j]) {
+        for (var j = 0; j < collectionA.length; j++) {
+            if (collectionA[i] == collectionA[j]) {
                 sum++;
                 i = j;
             }
         }
 
-        obj = {barcode: collection_a[i], count_temp: sum};
+        obj = {barcode: collectionA[i], count_temp: sum};
 
         obj.count_temp = sum;
         result.push(obj);
@@ -52,18 +52,18 @@ function createBarcodeList(collection_a) {
 
     return result;
 }
-function printShoppingList(inputs) {
+function printShoppingList(barcode) {
     var stringHeader = '***<没钱赚商店>购物清单***' + '\n';
     var stringFootA = '----------------------' + '\n';
     var stringFootB = '**********************';
     var stringBody = '';
     var allCount = 0;
 
-    for (var i in inputs) {
-        var count = parseFloat(inputs[i].price * inputs[i].count_temp).toFixed(2);
-        var price = parseFloat(inputs[i].price).toFixed(2);
-        stringBody = stringBody + '名称：' + inputs[i].name + '，' + '数量：' + inputs[i].count_temp + inputs[i].unit + '，' + '单价：' + price + '(元)，小计：' + count + '(元)\n';
-        allCount = allCount + inputs[i].price * inputs[i].count_temp;
+    for (var i in barcode) {
+        var count = parseFloat(barcode[i].price * barcode[i].count_temp).toFixed(2);
+        var price = parseFloat(barcode[i].price).toFixed(2);
+        stringBody = stringBody + '名称：' + barcode[i].name + '，' + '数量：' + barcode[i].count_temp + barcode[i].unit + '，' + '单价：' + price + '(元)，小计：' + count + '(元)\n';
+        allCount = allCount + barcode[i].price * barcode[i].count_temp;
     }
     var stringCount = '总计：' + parseFloat(allCount).toFixed(2) + '(元)\n';
     var stringAll = stringHeader + stringBody + stringFootA + stringCount + stringFootB;
