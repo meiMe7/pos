@@ -18,15 +18,13 @@ function createShoppingList(collection_a, collection_b) {
             price: 0,
             count_temp: 0
         };
-        for (var object_j in collection_b) {
-            if (collection_a[object_i].barcode == collection_b[object_j].barcode) {
-                obj.barcode = collection_a[object_i].barcode;
-                obj.name = collection_a[object_i].name;
-                obj.unit = collection_a[object_i].unit;
-                obj.price = collection_a[object_i].price;
-                obj.count_temp = collection_b[object_j].count_temp;
-                result.push(obj);
-            }
+        for (var object_j in collection_b) if (collection_a[object_i].barcode == collection_b[object_j].barcode) {
+            obj.barcode = collection_a[object_i].barcode;
+            obj.name = collection_a[object_i].name;
+            obj.unit = collection_a[object_i].unit;
+            obj.price = collection_a[object_i].price;
+            obj.count_temp = collection_b[object_j].count_temp;
+            result.push(obj);
         }
     }
 
