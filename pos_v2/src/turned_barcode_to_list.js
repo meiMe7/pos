@@ -83,3 +83,13 @@ TurnedBarcodeToList.prototype.SumCountPrice = function () {
     allCount = parseFloat(allCount - sailCount).toFixed(2);
     return [allCount, sailCount];
 };
+//条形码扫描仪
+function BarcodeScanner(collection){
+    var turnBarcode = new TurnedBarcodeToList();
+    turnBarcode.collection = inputs;
+    turnBarcode.CountBarcode();//统计相同条形码的数量
+    turnBarcode.SplitBarcode();//按照特殊分隔符统计条形码的数量
+    turnBarcode.collectionMessage = loadAllItems();
+    turnBarcode.CreateList();//建立购买商品对象信息数组
+    turnBarcode.sailCollectionMessage = loadPromotions();
+}
