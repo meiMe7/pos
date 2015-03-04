@@ -10,7 +10,7 @@ function createShoppingList(collectionA, collectionB) {
     console.log(collectionA);
     var result = [];
 
-    for (var i in collectionA) {
+    collectionA.forEach(function (objectI) {
         var obj = {
             barcode: '',
             name: '',
@@ -18,16 +18,16 @@ function createShoppingList(collectionA, collectionB) {
             price: 0,
             count_temp: 0
         };
-        for (var j in collectionB) if (collectionA[i].barcode == collectionB[j].barcode) {
-            obj.barcode = collectionA[i].barcode;
-            obj.name = collectionA[i].name;
-            obj.unit = collectionA[i].unit;
-            obj.price = collectionA[i].price;
-            obj.count_temp = collectionB[j].count_temp;
+        collectionB.forEach(function (objectJ) {
+            if (objectI.barcode == objectJ.barcode) {
+            obj.barcode = objectI.barcode;
+            obj.name = objectI.name;
+            obj.unit = objectI.unit;
+            obj.price = objectI.price;
+            obj.count_temp = objectJ.count_temp;
             result.push(obj);
-        }
-    }
-
+        }});
+    });
     return result;
 }
 
@@ -59,12 +59,12 @@ function printShoppingList(barcode) {
     var stringBody = '';
     var allCount = 0;
 
-    for (var i in barcode) {
-        var count = parseFloat(barcode[i].price * barcode[i].count_temp).toFixed(2);
-        var price = parseFloat(barcode[i].price).toFixed(2);
-        stringBody = stringBody + '名称：' + barcode[i].name + '，' + '数量：' + barcode[i].count_temp + barcode[i].unit + '，' + '单价：' + price + '(元)，小计：' + count + '(元)\n';
-        allCount = allCount + barcode[i].price * barcode[i].count_temp;
-    }
+    barcode.forEach(function (object) {
+        var count = parseFloat(object.price * object.count_temp).toFixed(2);
+        var price = parseFloat(object.price).toFixed(2);
+        stringBody = stringBody + '名称：' + object.name + '，' + '数量：' + object.count_temp + object.unit + '，' + '单价：' + price + '(元)，小计：' + count + '(元)\n';
+        allCount = allCount + object.price * object.count_temp;
+    });
     var stringCount = '总计：' + parseFloat(allCount).toFixed(2) + '(元)\n';
     var stringAll = stringHeader + stringBody + stringFootA + stringCount + stringFootB;
     console.log(stringAll);

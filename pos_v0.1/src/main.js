@@ -6,23 +6,23 @@ function printInventory(inputs) {
 function uniqueArray(barcode) {
     var arrayTemp = [];
 
-    for (var j = 0; j < barcode.length; j++) {
+    barcode.forEach(function (j){
         var flag = false;
         for (var k = 0; k < arrayTemp.length; k++) {
-            if (arrayTemp[k].name.indexOf(barcode[j].name) > -1) {
+            if (arrayTemp[k].name.indexOf(j.name) > -1) {
                 flag = true;
                 break;
             }
         }
-        if (!flag) arrayTemp.push(barcode[j])
-    }
+        if (!flag) arrayTemp.push(j);
+    });
 
     return arrayTemp
 }
 function CreateBarcodeCount(barcode) {
     var output = [];
 
-    for (var object_i in barcode) {
+    barcode.forEach(function (objectI) {
         var obj = {
             barcode: '',
             name: '',
@@ -30,19 +30,19 @@ function CreateBarcodeCount(barcode) {
             price: 0,
             count_temp: 0
         };
-        obj.barcode = barcode[object_i].barcode;
-        obj.name = barcode[object_i].name;
-        obj.unit = barcode[object_i].unit;
-        obj.price = barcode[object_i].price;
+        obj.barcode = objectI.barcode;
+        obj.name = objectI.name;
+        obj.unit = objectI.unit;
+        obj.price = objectI.price;
         obj.count_temp = 0;
-        for (var object_j in barcode) {
-            if (barcode[object_i].barcode == barcode[object_j].barcode) {
+        barcode.forEach(function (objectJ) {
+            if (objectI.barcode == objectJ.barcode) {
                 obj.count_temp = obj.count_temp + 1;
 
             }
-        }
+        });
         output.push(obj);
-    }
+    });
     return output;
 }
 function PrintShoppingList(barcode) {
@@ -51,12 +51,12 @@ function PrintShoppingList(barcode) {
     var stringFootB = '**********************';
     var stringBody = '';
     var allCount = 0;
-    for (var i in barcode) {
-        var count = parseFloat(barcode[i].price * barcode[i].count_temp).toFixed(2);
-        var price = parseFloat(barcode[i].price).toFixed(2);
-        stringBody = stringBody + '名称：' + barcode[i].name + '，' + '数量：' + barcode[i].count_temp + barcode[i].unit + '，' + '单价：' + price + '(元)，小计：' + count + '(元)\n';
-        allCount = allCount + barcode[i].price * barcode[i].count_temp;
-    }
+    barcode.forEach(function (object) {
+        var count = parseFloat(object.price * object.count_temp).toFixed(2);
+        var price = parseFloat(object.price).toFixed(2);
+        stringBody = stringBody + '名称：' + object.name + '，' + '数量：' + object.count_temp + object.unit + '，' + '单价：' + price + '(元)，小计：' + count + '(元)\n';
+        allCount = allCount + object.price * object.count_temp;
+    });
     var stringCount = '总计：' + parseFloat(allCount).toFixed(2) + '(元)\n';
     var stringAll = stringHeader + stringBody + stringFootA + stringCount + stringFootB;
     console.log(stringAll);
