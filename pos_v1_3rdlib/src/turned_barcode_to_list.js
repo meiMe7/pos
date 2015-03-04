@@ -32,13 +32,13 @@ TurnedBarcodeToList.prototype.CountBarcode = function () {
 TurnedBarcodeToList.prototype.SplitBarcode = function () {
     var collection = this.collection;
 
-    for (var i = 0; i < collection.length; i++) {
-        var arr = (collection[i].barcode).split("-");
+    collection.forEach(function (obj) {
+        var arr = (obj.barcode).split("-");
         if (arr[1] != undefined) {
-            collection[i].barcode = arr[0];
-            collection[i].count_temp = Number(arr[1]);
+            obj.barcode = arr[0];
+            obj.count_temp = Number(arr[1]);
         }
-    }
+    });
 
     this.collection = collection;
 };
@@ -48,7 +48,7 @@ TurnedBarcodeToList.prototype.CreateList = function () {
     var collectionB = this.collection;
     var result = [];
 
-    for (var i = 0; i < collectionA.length; i++) {
+    collectionA.forEach(function (objectA) {
         var obj = {
             barcode: '',
             name: '',
@@ -56,18 +56,18 @@ TurnedBarcodeToList.prototype.CreateList = function () {
             price: 0,
             count_temp: 0
         };
-        for (var j = 0; j < collectionB.length; j++) {
-            if (collectionA[i].barcode == collectionB[j].barcode) {
-                obj.barcode = collectionA[i].barcode;
-                obj.name = collectionA[i].name;
-                obj.unit = collectionA[i].unit;
-                obj.price = collectionA[i].price;
-                obj.count_temp = collectionB[j].count_temp;
+       collectionB.forEach(function (objectB) {
+            if (objectA.barcode == objectB.barcode) {
+                obj.barcode = objectA.barcode;
+                obj.name = objectA.name;
+                obj.unit = objectA.unit;
+                obj.price = objectA.price;
+                obj.count_temp = objectB.count_temp;
             }
-        }
+        });
 
         if (obj.barcode != '')result.push(obj);
-    }
+    });
     this.collection = result;
 };
 //按照商品信息，和买一送一商品信息条形码相等，得到购买商品总价格即：总计，和购买商品中赠送的商品的总价格即：节省
@@ -77,16 +77,16 @@ TurnedBarcodeToList.prototype.SumCountPrice = function () {
     var allCount = 0;
     var sailCount = 0.00;
 
-    for (var i in collectionA) {
-        allCount = allCount + collectionA[i].price * collectionA[i].count_temp;
-        for (var k in  collectionB) {
-            for (var j in collectionB[k].barcode) {
-                if (collectionB[k].barcode[j] == collectionA[i].barcode) {
-                    sailCount = sailCount + collectionA[i].price;
+    collectionA.forEach(function (objectA) {
+        allCount = allCount + objectA.price * objectA.count_temp;
+        collectionB.forEach(function (objectB) {
+            objectB.barcode.forEach(function (barcodeJ) {
+                if (barcodeJ == objectA.barcode) {
+                    sailCount = sailCount + objectA.price;
                 }
-            }
-        }
-    }
+            });
+        });
+    });
 
     allCount = parseFloat(allCount - sailCount).toFixed(2);
     return [allCount, sailCount];

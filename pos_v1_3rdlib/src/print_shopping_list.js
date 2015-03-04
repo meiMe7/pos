@@ -11,22 +11,22 @@ function PrintShoppingList(barcodeObject) {
     var allCount = 0;
     var stringBodySail = '';
     var sailCount = 0;
-    for (var i in barcodeObject) {
-        var count = parseFloat(barcodeObject[i].price * barcodeObject[i].count_temp).toFixed(2);
-        var price = parseFloat(barcodeObject[i].price).toFixed(2);
+    barcodeObject.forEach(function (objI) {
+        var count = parseFloat(objI.price * objI.count_temp).toFixed(2);
+        var price = parseFloat(objI.price).toFixed(2);
 
-        allCount = allCount + barcodeObject[i].price * barcodeObject[i].count_temp;
+        allCount = allCount + objI.price * objI.count_temp;
         var promotions = loadPromotions();
 
-        for (var j in promotions[0].barcode) {
-            if (promotions[0].barcode[j] == barcodeObject[i].barcode) {
-                count = parseFloat(barcodeObject[i].price * (barcodeObject[i].count_temp - 1)).toFixed(2);
-                stringBodySail = stringBodySail + '名称：' + barcodeObject[i].name + '，数量：1' + barcodeObject[i].unit + '\n';
-                sailCount = sailCount + barcodeObject[i].price;
+        promotions[0].barcode.forEach(function (barcode) {
+            if (barcode == objI.barcode) {
+                count = parseFloat(objI.price * (objI.count_temp - 1)).toFixed(2);
+                stringBodySail = stringBodySail + '名称：' + objI.name + '，数量：1' + objI.unit + '\n';
+                sailCount = sailCount + objI.price;
             }
-        }
-        stringBody = stringBody + '名称：' + barcodeObject[i].name + '，' + '数量：' + barcodeObject[i].count_temp + barcodeObject[i].unit + '，' + '单价：' + price + '(元)，小计：' + count + '(元)\n';
-    }
+        });
+        stringBody = stringBody + '名称：' + objI.name + '，' + '数量：' + objI.count_temp + objI.unit + '，' + '单价：' + price + '(元)，小计：' + count + '(元)\n';
+    });
     var stringCount = '总计：' + parseFloat(allCount - sailCount).toFixed(2) + '(元)\n';
     var stringSail = '节省：' + parseFloat(sailCount).toFixed(2) + '(元)\n';
     var stringAll = stringHeader + stringBody + stringFootA + stringSailTitle + stringBodySail + stringFootA + stringCount + stringSail + stringFootB;

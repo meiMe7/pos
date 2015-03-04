@@ -45,24 +45,24 @@ TurnedBarcodeToList.prototype.SplitBarcode = function () {
 TurnedBarcodeToList.prototype.Weight = function () {
     var collectionA = this.collection;
     var result = [];
-    for (var i in collectionA) {
+    collectionA.forEach(function (objA) {
         var collectionB = loadAllItems();
-        for (var j in collectionB) {
-            if (collectionA[i] == collectionB[j].barcode && collectionB[j].unit == "斤") {
-                result.push(collectionA[i]);
+        collectionB.forEach(function (objB){
+            if (objA == objB.barcode && objB.unit == "斤") {
+                result.push(objA);
             }
-        }
-    }
-    for (var i in collectionA) {
+        });
+    });
+    collectionA.forEach(function (objA) {
         var collectionC = loadAllItems();
-        for (var j in result) {
-            if (collectionA[i] == result[j]) {
-                collectionA[i] = collectionA[++i];
-                --i;
+        result.forEach(function (objTemp) {
+            if (objA == objTemp) {
+                objA = collectionA[++objA];
+                --objA;
                 collectionA.length = collectionA.length - 1;
             }
-        }
-    }
+        });
+    });
     this.collection = collectionA;
     var collectionD = result;
     var resultB = [];
@@ -85,9 +85,9 @@ TurnedBarcodeToList.prototype.Weight = function () {
 TurnedBarcodeToList.prototype.AllGoods = function (weight) {
 
     var collectionA = this.collection;
-      for (var i in weight) {
-        collectionA.push(weight[i]);
-    }
+      weight.forEach(function (element) {
+          collectionA.push(element);
+      });
     this.collection = collectionA;
 };
 //按照条形码对象数组,条形码与商品信息相对应，得到购买商品信息对象数组
@@ -95,7 +95,7 @@ TurnedBarcodeToList.prototype.CreateList = function () {
     var collectionA = this.collectionMessage;
     var collectionB = this.collection;
     var result = [];
-    for (var i = 0; i < collectionA.length; i++) {
+    collectionA.forEach(function (objA){
         var obj = {
             barcode: '',
             name: '',
@@ -103,17 +103,17 @@ TurnedBarcodeToList.prototype.CreateList = function () {
             price: 0,
             count_temp: 0
         };
-        for (var j = 0; j < collectionB.length; j++) {
-            if (collectionA[i].barcode == collectionB[j].barcode) {
-                obj.barcode = collectionA[i].barcode;
-                obj.name = collectionA[i].name;
-                obj.unit = collectionA[i].unit;
-                obj.price = collectionA[i].price;
-                obj.count_temp = collectionB[j].count_temp;
+        collectionB.forEach(function (objB) {
+            if (objA.barcode == objB.barcode) {
+                obj.barcode = objA.barcode;
+                obj.name = objA.name;
+                obj.unit = objA.unit;
+                obj.price = objA.price;
+                obj.count_temp = objB.count_temp;
             }
-        }
+        });
         if (obj.barcode != '')result.push(obj);
-    }
+    });
     this.collection = result;
 };
 //按照商品信息，和买一送一商品信息条形码相等，得到购买商品总价格即：总计，和购买商品中赠送的商品的总价格即：节省
@@ -123,16 +123,16 @@ TurnedBarcodeToList.prototype.SumCountPrice = function () {
     var allCount = 0;
     var sailCount = 0.00;
 
-    for (var i in collectionA) {
-        allCount = allCount + collectionA[i].price * collectionA[i].count_temp;
+    collectionA.forEach(function (objI) {
+        allCount = allCount + objI.price * objI.count_temp;
         for (var k in  collectionB) {
-            for (var j in collectionB[k].barcode) {
-                if (collectionB[k].barcode[j] == collectionA[i].barcode) {
-                    sailCount = sailCount + collectionA[i].price;
+            collectionB[k].barcode.forEach(function (element) {
+                if (element == objI.barcode) {
+                    sailCount = sailCount + objI.price;
                 }
-            }
+            });
         }
-    }
+    });
     allCount = parseFloat(allCount - sailCount).toFixed(2);
     return [allCount, sailCount];
 };

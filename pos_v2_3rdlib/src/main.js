@@ -10,5 +10,4 @@ function printInventory(inputs) {
     turnBarcode.CreateList();//建立购买商品对象与商品信息对应的购物信息数组
     turnBarcode.sailCollectionMessage = loadPromotions();//引入减价商品信息
     PrintShoppingList(turnBarcode.collection, turnBarcode.SumCountPrice());//将购物信息和总计价格输出打印
-
 }

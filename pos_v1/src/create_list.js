@@ -4,7 +4,7 @@
 function createList(collectionA, collectionB) {
     var result = [];
 
-    for (var i = 0; i < collectionA.length; i++) {
+   collectionA.forEach(function (objectA) {
         var obj = {
             barcode: '',
             name: '',
@@ -12,19 +12,19 @@ function createList(collectionA, collectionB) {
             price: 0,
             count_temp: 0
         };
-        for (var j = 0; j < collectionB.length; j++) {
+       collectionB.forEach(function (objectB) {
 
-            if (collectionA[i].barcode == collectionB[j].barcode) {
-                obj.barcode = collectionA[i].barcode;
-                obj.name = collectionA[i].name;
-                obj.unit = collectionA[i].unit;
-                obj.price = collectionA[i].price;
-                obj.count_temp = collectionB[j].count_temp;
+            if (objectA.barcode == objectB.barcode) {
+                obj.barcode = objectA.barcode;
+                obj.name = objectA.name;
+                obj.unit = objectA.unit;
+                obj.price = objectA.price;
+                obj.count_temp = objectB.count_temp;
 
             }
-        }
+        });
         if (obj.barcode != '')result.push(obj);
-    }
+    });
 
     return result;
 }
