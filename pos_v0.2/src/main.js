@@ -10,7 +10,7 @@ function createShoppingList(collectionA, collectionB) {
     console.log(collectionA);
     var result = [];
 
-    collectionA.forEach(function (objectI) {
+    _.filter(collectionA,function (objectI) {
         var obj = {
             barcode: '',
             name: '',
@@ -18,7 +18,7 @@ function createShoppingList(collectionA, collectionB) {
             price: 0,
             count_temp: 0
         };
-        collectionB.forEach(function (objectJ) {
+        _.filter(collectionB,function(objectJ) {
             if (objectI.barcode == objectJ.barcode) {
             obj.barcode = objectI.barcode;
             obj.name = objectI.name;
@@ -59,7 +59,7 @@ function printShoppingList(barcode) {
     var stringBody = '';
     var allCount = 0;
 
-    barcode.forEach(function (object) {
+    _.filter(barcode,function (object) {
         var count = parseFloat(object.price * object.count_temp).toFixed(2);
         var price = parseFloat(object.price).toFixed(2);
         stringBody = stringBody + '名称：' + object.name + '，' + '数量：' + object.count_temp + object.unit + '，' + '单价：' + price + '(元)，小计：' + count + '(元)\n';

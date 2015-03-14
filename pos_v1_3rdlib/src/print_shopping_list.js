@@ -11,14 +11,14 @@ function PrintShoppingList(barcodeObject) {
     var allCount = 0;
     var stringBodySail = '';
     var sailCount = 0;
-    barcodeObject.forEach(function (objI) {
+    _.filter(barcodeObject,function (objI) {
         var count = parseFloat(objI.price * objI.count_temp).toFixed(2);
         var price = parseFloat(objI.price).toFixed(2);
 
         allCount = allCount + objI.price * objI.count_temp;
         var promotions = loadPromotions();
 
-        promotions[0].barcode.forEach(function (barcode) {
+        _.filter(promotions[0].barcode,function (barcode) {
             if (barcode == objI.barcode) {
                 count = parseFloat(objI.price * (objI.count_temp - 1)).toFixed(2);
                 stringBodySail = stringBodySail + '名称：' + objI.name + '，数量：1' + objI.unit + '\n';

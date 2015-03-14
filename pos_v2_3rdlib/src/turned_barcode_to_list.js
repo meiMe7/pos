@@ -45,9 +45,9 @@ TurnedBarcodeToList.prototype.SplitBarcode = function () {
 TurnedBarcodeToList.prototype.Weight = function () {
     var collectionA = this.collection;
     var result = [];
-    collectionA.forEach(function (objA) {
+    _.filter(collectionA,function (objA) {
         var collectionB = loadAllItems();
-        collectionB.forEach(function (objB){
+        _.filter(collectionB,function (objB){
             if (objA == objB.barcode && objB.unit == "斤") {
                 result.push(objA);
             }
@@ -85,7 +85,7 @@ TurnedBarcodeToList.prototype.Weight = function () {
 TurnedBarcodeToList.prototype.AllGoods = function (weight) {
 
     var collectionA = this.collection;
-      weight.forEach(function (element) {
+    _.filter(weight,function (element) {
           collectionA.push(element);
       });
     this.collection = collectionA;
@@ -95,7 +95,7 @@ TurnedBarcodeToList.prototype.CreateList = function () {
     var collectionA = this.collectionMessage;
     var collectionB = this.collection;
     var result = [];
-    collectionA.forEach(function (objA){
+    _.filter(collectionA,function (objA){
         var obj = {
             barcode: '',
             name: '',
@@ -103,7 +103,7 @@ TurnedBarcodeToList.prototype.CreateList = function () {
             price: 0,
             count_temp: 0
         };
-        collectionB.forEach(function (objB) {
+        _.filter(collectionB,function (objB) {
             if (objA.barcode == objB.barcode) {
                 obj.barcode = objA.barcode;
                 obj.name = objA.name;
@@ -123,7 +123,7 @@ TurnedBarcodeToList.prototype.SumCountPrice = function () {
     var allCount = 0;
     var sailCount = 0.00;
 
-    collectionA.forEach(function (objI) {
+    _.filter(collectionA,function (objI) {
         allCount = allCount + objI.price * objI.count_temp;
         for (var k in  collectionB) {
             collectionB[k].barcode.forEach(function (element) {

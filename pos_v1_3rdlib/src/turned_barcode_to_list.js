@@ -32,7 +32,7 @@ TurnedBarcodeToList.prototype.CountBarcode = function () {
 TurnedBarcodeToList.prototype.SplitBarcode = function () {
     var collection = this.collection;
 
-    collection.forEach(function (obj) {
+    _.filter(collection,function (obj) {
         var arr = (obj.barcode).split("-");
         if (arr[1] != undefined) {
             obj.barcode = arr[0];
@@ -48,7 +48,7 @@ TurnedBarcodeToList.prototype.CreateList = function () {
     var collectionB = this.collection;
     var result = [];
 
-    collectionA.forEach(function (objectA) {
+    _.filter(collectionA,function (objectA) {
         var obj = {
             barcode: '',
             name: '',
@@ -56,7 +56,7 @@ TurnedBarcodeToList.prototype.CreateList = function () {
             price: 0,
             count_temp: 0
         };
-       collectionB.forEach(function (objectB) {
+        _.filter(collectionB,function (objectB) {
             if (objectA.barcode == objectB.barcode) {
                 obj.barcode = objectA.barcode;
                 obj.name = objectA.name;
@@ -77,7 +77,7 @@ TurnedBarcodeToList.prototype.SumCountPrice = function () {
     var allCount = 0;
     var sailCount = 0.00;
 
-    collectionA.forEach(function (objectA) {
+    _.filter(collectionA,function (objectA) {
         allCount = allCount + objectA.price * objectA.count_temp;
         collectionB.forEach(function (objectB) {
             objectB.barcode.forEach(function (barcodeJ) {
@@ -93,10 +93,11 @@ TurnedBarcodeToList.prototype.SumCountPrice = function () {
 };
 function BarcodeScanner (collection){
     var turnBarcode = new TurnedBarcodeToList();
-    turnBarcode.collection = inputs;
+    turnBarcode.collection = collection;
     turnBarcode.CountBarcode();//统计相同条形码的数量
     turnBarcode.SplitBarcode();//按照特殊分隔符统计条形码的数量
     turnBarcode.collectionMessage = loadAllItems();
     turnBarcode.CreateList();//建立购买商品对象信息数组
     turnBarcode.sailCollectionMessage = loadPromotions();
+    return turnBarcode
 }
