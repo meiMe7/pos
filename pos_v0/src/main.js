@@ -4,13 +4,16 @@ function printInventory(inputs) {
     var stringFootA = '----------------------' + '\n';
     var stringFootB = '**********************';
     var stringBody = '';
-    var allCount = 0;
-    _.filter(inputs,function(object){
+    var tempCount = [];
+
+    _.each(inputs, function (object) {
         var count = parseFloat(object.price * object.count).toFixed(2);
+        tempCount.push(object.price * object.count);
         var price = parseFloat(object.price).toFixed(2);
         stringBody = stringBody + '名称：' + object.name + '，' + '数量：' + object.count + object.unit + '，' + '单价：' + price + '(元)，小计：' + count + '(元)\n';
-        allCount = allCount + object.price * object.count;});
+    });
 
+    var allCount = _.reduce(tempCount,function(memo,num){return memo+num;},0);
 
     var stringCount = '总计：' + parseFloat(allCount).toFixed(2) + '(元)\n';
     var stringAll = stringHeader + stringBody + stringFootA + stringCount + stringFootB;

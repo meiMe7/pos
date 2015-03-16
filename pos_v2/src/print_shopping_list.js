@@ -32,6 +32,3 @@ function PrintShoppingList(barcodeObject) {
     var strAll = strHeader + strData + strFootA + strBody + strFootA + strSailTitle + strBodySail + strFootA + strCount + strSail + strFootB;
     console.log(strAll);
 }
-//function DateShow() {
-//    return moment().format('YYYY年MM月DD日 HH:mm:ss');
-//}

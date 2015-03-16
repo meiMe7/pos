@@ -45,9 +45,9 @@ TurnedBarcodeToList.prototype.SplitBarcode = function () {
 TurnedBarcodeToList.prototype.Weight = function () {
     var collectionA = this.collection;
     var result = [];
-    _.filter(collectionA,function (objA) {
+    _.filter(collectionA, function (objA) {
         var collectionB = loadAllItems();
-        _.filter(collectionB,function (objB){
+        _.filter(collectionB, function (objB) {
             if (objA == objB.barcode && objB.unit == "斤") {
                 result.push(objA);
             }
@@ -85,9 +85,9 @@ TurnedBarcodeToList.prototype.Weight = function () {
 TurnedBarcodeToList.prototype.AllGoods = function (weight) {
 
     var collectionA = this.collection;
-    _.filter(weight,function (element) {
-          collectionA.push(element);
-      });
+    _.filter(weight, function (element) {
+        collectionA.push(element);
+    });
     this.collection = collectionA;
 };
 //按照条形码对象数组,条形码与商品信息相对应，得到购买商品信息对象数组
@@ -95,7 +95,7 @@ TurnedBarcodeToList.prototype.CreateList = function () {
     var collectionA = this.collectionMessage;
     var collectionB = this.collection;
     var result = [];
-    _.filter(collectionA,function (objA){
+    _.filter(collectionA, function (objA) {
         var obj = {
             barcode: '',
             name: '',
@@ -103,7 +103,7 @@ TurnedBarcodeToList.prototype.CreateList = function () {
             price: 0,
             count_temp: 0
         };
-        _.filter(collectionB,function (objB) {
+        _.filter(collectionB, function (objB) {
             if (objA.barcode == objB.barcode) {
                 obj.barcode = objA.barcode;
                 obj.name = objA.name;
@@ -123,7 +123,7 @@ TurnedBarcodeToList.prototype.SumCountPrice = function () {
     var allCount = 0;
     var sailCount = 0.00;
 
-    _.filter(collectionA,function (objI) {
+    _.filter(collectionA, function (objI) {
         allCount = allCount + objI.price * objI.count_temp;
         for (var k in  collectionB) {
             collectionB[k].barcode.forEach(function (element) {
@@ -137,7 +137,7 @@ TurnedBarcodeToList.prototype.SumCountPrice = function () {
     return [allCount, sailCount];
 };
 //条形码扫描仪
-function BarcodeScanner (collection){
+function BarcodeScanner(collection) {
     var turnBarcode = new TurnedBarcodeToList();
     turnBarcode.collection = collection;
     turnBarcode.SplitBarcode();//按照特殊分隔符统计条形码的数量
