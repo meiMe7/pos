@@ -7,10 +7,9 @@ function printInventory(inputs) {
 }
 
 function createShoppingList(collectionA, collectionB) {
-    console.log(collectionA);
     var result = [];
 
-    _.filter(collectionA, function (objectI) {
+    _.each(collectionA, function (objectI) {
         var obj = {
             barcode: '',
             name: '',
@@ -18,7 +17,7 @@ function createShoppingList(collectionA, collectionB) {
             price: 0,
             count_temp: 0
         };
-        _.filter(collectionB, function (objectJ) {
+        _.each(collectionB, function (objectJ) {
             if (objectI.barcode == objectJ.barcode) {
                 obj.barcode = objectI.barcode;
                 obj.name = objectI.name;
@@ -58,14 +57,17 @@ function printShoppingList(barcode) {
     var stringFootA = '----------------------' + '\n';
     var stringFootB = '**********************';
     var stringBody = '';
-    var allCount = 0;
+    var tempCount = [];
 
-    _.filter(barcode, function (object) {
+    _.each(barcode, function (object) {
         var count = parseFloat(object.price * object.count_temp).toFixed(2);
+        tempCount.push(object.price * object.count_temp);
         var price = parseFloat(object.price).toFixed(2);
         stringBody = stringBody + '名称：' + object.name + '，' + '数量：' + object.count_temp + object.unit + '，' + '单价：' + price + '(元)，小计：' + count + '(元)\n';
-        allCount = allCount + object.price * object.count_temp;
-    });
+            });
+
+    var allCount = _.reduce(tempCount,function(memo,num){return memo+num;},0);
+
     var stringCount = '总计：' + parseFloat(allCount).toFixed(2) + '(元)\n';
     var stringAll = stringHeader + stringBody + stringFootA + stringCount + stringFootB;
     console.log(stringAll);

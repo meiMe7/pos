@@ -29,21 +29,22 @@ TurnedBarcodeToList.prototype.CountBarcode = function () {
 //将条形码，按照条形码号特殊符号＂－＂统计出数量，返回条形码对象数组［｛barcode:'',count:''｝］
 TurnedBarcodeToList.prototype.SplitBarcode = function () {
     var collection = this.collection;
-    for (var i = 0; i < collection.length; i++) {
-        var arr = (collection[i].barcode).split("-");
+    _.each(collection,function(objI){
+        var arr = (objI.barcode).split("-");
         if (arr[1] != undefined) {
-            collection[i].barcode = arr[0];
-            collection[i].count_temp = Number(arr[1]);
+            objI.barcode = arr[0];
+            objI.count_temp = Number(arr[1]);
         }
-    }
+    });
     this.collection = collection;
 };
 //按照条形码对象数组，将条形码与商品信息相对应，得到购买商品信息对象数组
 TurnedBarcodeToList.prototype.CreateList = function () {
     var collectionA = this.collectionMessage;
-    var collectionB= this.collection;
+    var collectionB = this.collection;
     var result = [];
-    for (var i = 0; i < collectionA.length; i++) {
+
+    _.each(collectionA, function (objectA) {
         var obj = {
             barcode: '',
             name: '',
@@ -51,35 +52,38 @@ TurnedBarcodeToList.prototype.CreateList = function () {
             price: 0,
             count_temp: 0
         };
-        for (var j = 0; j < collectionB.length; j++) {
-            if (collectionA[i].barcode == collectionB[j].barcode) {
-                obj.barcode = collectionA[i].barcode;
-                obj.name = collectionA[i].name;
-                obj.unit = collectionA[i].unit;
-                obj.price = collectionA[i].price;
-                obj.count_temp = collectionB[j].count_temp;
+        _.each(collectionB, function (objectB) {
+            if (objectA.barcode == objectB.barcode) {
+                obj.barcode = objectA.barcode;
+                obj.name = objectA.name;
+                obj.unit = objectA.unit;
+                obj.price = objectA.price;
+                obj.count_temp = objectB.count_temp;
             }
-        }
+        });
+
         if (obj.barcode != '')result.push(obj);
-    }
+    });
     this.collection = result;
 };
 //按照商品信息，和买一送一商品信息条形码相等，得到购买商品总价格即：总计，和购买商品中赠送的商品的总价格即：节省
 TurnedBarcodeToList.prototype.SumCountPrice = function () {
     var collectionA = this.collection;
-    var collectionB = this.sail_collection_message;
+    var collectionB = this.sailCollectionMessage;
     var allCount = 0;
     var sailCount = 0.00;
-    for (var i in collectionA) {
-        allCount = allCount + collectionA[i].price * collectionA[i].count_temp;
-        for (var k in  collectionB) {
-            for (var j in collectionB[k].barcode) {
-                if (collectionB[k].barcode[j] == collectionA[i].barcode) {
-                    sailCount = sailCount + collectionA[i].price;
+
+    _.each(collectionA, function (objectA) {
+        allCount = allCount + objectA.price * objectA.count_temp;
+        collectionB.forEach(function (objectB) {
+            objectB.barcode.forEach(function (barcodeJ) {
+                if (barcodeJ == objectA.barcode) {
+                    sailCount = sailCount + objectA.price;
                 }
-            }
-        }
-    }
+            });
+        });
+    });
+
     allCount = parseFloat(allCount - sailCount).toFixed(2);
     return [allCount, sailCount];
 };

@@ -32,7 +32,7 @@ TurnedBarcodeToList.prototype.CountBarcode = function () {
 TurnedBarcodeToList.prototype.SplitBarcode = function () {
     var collection = this.collection;
 
-    _.filter(collection, function (obj) {
+    _.each(collection, function (obj) {
         var arr = (obj.barcode).split("-");
         if (arr[1] != undefined) {
             obj.barcode = arr[0];
@@ -48,7 +48,7 @@ TurnedBarcodeToList.prototype.CreateList = function () {
     var collectionB = this.collection;
     var result = [];
 
-    _.filter(collectionA, function (objectA) {
+    _.each(collectionA, function (objectA) {
         var obj = {
             barcode: '',
             name: '',
@@ -56,7 +56,7 @@ TurnedBarcodeToList.prototype.CreateList = function () {
             price: 0,
             count_temp: 0
         };
-        _.filter(collectionB, function (objectB) {
+        _.each(collectionB, function (objectB) {
             if (objectA.barcode == objectB.barcode) {
                 obj.barcode = objectA.barcode;
                 obj.name = objectA.name;
@@ -77,7 +77,7 @@ TurnedBarcodeToList.prototype.SumCountPrice = function () {
     var allCount = 0;
     var sailCount = 0.00;
 
-    _.filter(collectionA, function (objectA) {
+    _.each(collectionA, function (objectA) {
         allCount = allCount + objectA.price * objectA.count_temp;
         collectionB.forEach(function (objectB) {
             objectB.barcode.forEach(function (barcodeJ) {

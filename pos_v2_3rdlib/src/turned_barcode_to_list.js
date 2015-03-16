@@ -45,9 +45,9 @@ TurnedBarcodeToList.prototype.SplitBarcode = function () {
 TurnedBarcodeToList.prototype.Weight = function () {
     var collectionA = this.collection;
     var result = [];
-    _.filter(collectionA, function (objA) {
+    _.each(collectionA, function (objA) {
         var collectionB = loadAllItems();
-        _.filter(collectionB, function (objB) {
+        _.each(collectionB, function (objB) {
             if (objA == objB.barcode && objB.unit == "斤") {
                 result.push(objA);
             }
@@ -85,7 +85,7 @@ TurnedBarcodeToList.prototype.Weight = function () {
 TurnedBarcodeToList.prototype.AllGoods = function (weight) {
 
     var collectionA = this.collection;
-    _.filter(weight, function (element) {
+    _.each(weight, function (element) {
         collectionA.push(element);
     });
     this.collection = collectionA;
@@ -95,7 +95,7 @@ TurnedBarcodeToList.prototype.CreateList = function () {
     var collectionA = this.collectionMessage;
     var collectionB = this.collection;
     var result = [];
-    _.filter(collectionA, function (objA) {
+    _.each(collectionA, function (objA) {
         var obj = {
             barcode: '',
             name: '',
@@ -103,7 +103,7 @@ TurnedBarcodeToList.prototype.CreateList = function () {
             price: 0,
             count_temp: 0
         };
-        _.filter(collectionB, function (objB) {
+        _.each(collectionB, function (objB) {
             if (objA.barcode == objB.barcode) {
                 obj.barcode = objA.barcode;
                 obj.name = objA.name;
@@ -119,20 +119,21 @@ TurnedBarcodeToList.prototype.CreateList = function () {
 //按照商品信息，和买一送一商品信息条形码相等，得到购买商品总价格即：总计，和购买商品中赠送的商品的总价格即：节省
 TurnedBarcodeToList.prototype.SumCountPrice = function () {
     var collectionA = this.collection;
-    var collectionB = this.sail_collection_message;
+    var collectionB = this.sailCollectionMessage;
     var allCount = 0;
     var sailCount = 0.00;
 
-    _.filter(collectionA, function (objI) {
-        allCount = allCount + objI.price * objI.count_temp;
-        for (var k in  collectionB) {
-            collectionB[k].barcode.forEach(function (element) {
-                if (element == objI.barcode) {
-                    sailCount = sailCount + objI.price;
+    _.each(collectionA, function (objectA) {
+        allCount = allCount + objectA.price * objectA.count_temp;
+        collectionB.forEach(function (objectB) {
+            objectB.barcode.forEach(function (barcodeJ) {
+                if (barcodeJ == objectA.barcode) {
+                    sailCount = sailCount + objectA.price;
                 }
             });
-        }
+        });
     });
+
     allCount = parseFloat(allCount - sailCount).toFixed(2);
     return [allCount, sailCount];
 };

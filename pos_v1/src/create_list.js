@@ -4,7 +4,7 @@
 function createList(collectionA, collectionB) {
     var result = [];
 
-    _.filter(collectionA,function (objectA) {
+    _.each(collectionA,function (objectA) {
         var obj = {
             barcode: '',
             name: '',
@@ -12,7 +12,7 @@ function createList(collectionA, collectionB) {
             price: 0,
             count_temp: 0
         };
-        _.filter(collectionB,function (objectB) {
+        _.each(collectionB,function (objectB) {
 
             if (objectA.barcode == objectB.barcode) {
                 obj.barcode = objectA.barcode;
