@@ -50,7 +50,8 @@ TurnedBarcodeToList.prototype.CreateList = function () {
             name: '',
             unit: '',
             price: 0,
-            count_temp: 0
+            count_temp: 0,
+            countPrice: 0
         };
         _.each(collectionB, function (objectB) {
             if (objectA.barcode == objectB.barcode) {
@@ -59,6 +60,7 @@ TurnedBarcodeToList.prototype.CreateList = function () {
                 obj.unit = objectA.unit;
                 obj.price = objectA.price;
                 obj.count_temp = objectB.count_temp;
+                obj.countPrice = objectA.price*objectB.count_temp;
             }
         });
 
@@ -71,20 +73,23 @@ TurnedBarcodeToList.prototype.SumCountPrice = function () {
     var collectionA = this.collection;
     var collectionB = this.sailCollectionMessage;
     var allCount = 0;
-    var sailCount = 0.00;
+    var sailCount = 0;
 
     _.each(collectionA, function (objectA) {
-        allCount = allCount + objectA.price * objectA.count_temp;
+        allCount = allCount + objectA.countPrice;
         collectionB.forEach(function (objectB) {
             objectB.barcode.forEach(function (barcodeJ) {
                 if (barcodeJ == objectA.barcode) {
                     sailCount = sailCount + objectA.price;
-                }
-            });
-        });
-    });
+                    objectA.countPrice = objectA.price*(objectA.count_temp-1);   } }); });    });
 
+    _.each(collectionA, function (objectA) {
+        objectA.countPrice = parseFloat(objectA.countPrice).toFixed(2);
+        objectA.price = parseFloat(objectA.price).toFixed(2);
+    });
     allCount = parseFloat(allCount - sailCount).toFixed(2);
+
+    this.collection = collectionA;
     return [allCount, sailCount];
 };
 //条形码扫描仪
@@ -96,5 +101,6 @@ function BarcodeScanner(collection){
     turnBarcode.collectionMessage = loadAllItems();
     turnBarcode.CreateList();//建立购买商品对象信息数组
     turnBarcode.sailCollectionMessage = loadPromotions();
+
     return turnBarcode
 }
